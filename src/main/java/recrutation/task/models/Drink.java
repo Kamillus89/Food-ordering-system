@@ -23,8 +23,29 @@ public class Drink {
         return id;
     }
 
+    public void setIceCubes(boolean iceCubes) {
+        this.iceCubes = iceCubes;
+    }
+
+    public void setLemon(boolean lemon) {
+        this.lemon = lemon;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
     @Override
     public String toString() {
+        if (iceCubes == true && lemon == true) {
+            return id +" \t"+ name + " with ice cubes and lemon \t"+ price.toString() + " pln";
+        }
+        if (lemon == false) {
+            return id +" \t"+ name + " with ice cubes \t"+ price.toString() + " pln";
+        }
+        if (iceCubes == false){
+            return id +" \t"+ name + " with lemon \t"+ price.toString() + " pln";
+        }
         return id +" \t"+ name + " \t"+ price.toString() + " pln";
     }
 }

@@ -1,7 +1,9 @@
 package recrutation.task.views;
 
 import recrutation.task.models.Drink;
+import recrutation.task.models.Order;
 
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,6 +19,7 @@ public class View {
                 "\n   [D] Drinks " +
                 "\n   [M] Meals " +
                 "\n   [L] Lunch (main course + dessert) " +
+                "\n   [S] Show my order " +
                 "\n\n Press [Q] to Quit");
     }
 
@@ -43,7 +46,26 @@ public class View {
         System.out.println("\nPlease select drink by number or press 0 to go back to main menu");
     }
 
-    public void choseRigthNumber() {
+    public void chooseRightNumber() {
         System.out.println("Please provide right drink number");
+    }
+
+    public String askUserForIceCubes() {
+        System.out.println("Would you like some ice cubes to drink? [y/n]");
+        return getUserChoice();
+    }
+
+    public String askUserForLemon() {
+        System.out.println("Would you like some lemon to drink? [y/n]");
+        return getUserChoice();
+    }
+
+    public void showOrder(Order order) {
+        clearScreen();
+        System.out.println("This is your current order: ");
+        List<Drink> orderedDrinks = order.getOrderedDrinks();
+        orderedDrinks.forEach( orderedDrink -> System.out.println(orderedDrink));
+        System.out.println("______________________");
+        System.out.println("Total cost = " + order.getTotalCost(orderedDrinks) + " pln\n");
     }
 }
