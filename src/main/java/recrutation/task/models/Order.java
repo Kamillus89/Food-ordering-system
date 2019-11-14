@@ -7,7 +7,6 @@ import java.util.List;
 public class Order {
 
     List<Drink> orderedDrinks;
-//    private BigDecimal totalCost = new BigDecimal(0);
 
     public Order() {
         this.orderedDrinks = new ArrayList<>();

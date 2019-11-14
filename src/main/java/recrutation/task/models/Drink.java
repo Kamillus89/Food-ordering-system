@@ -38,14 +38,14 @@ public class Drink {
     @Override
     public String toString() {
         if (iceCubes == true && lemon == true) {
-            return id +" \t"+ name + " with ice cubes and lemon \t"+ price.toString() + " pln";
+            return id + " \t" + name + " with ice cubes and lemon \t" + price.toString() + " pln";
         }
-        if (lemon == false) {
-            return id +" \t"+ name + " with ice cubes \t"+ price.toString() + " pln";
+        if (lemon == false && iceCubes == true) {
+            return id + " \t" + name + " with ice cubes \t" + price.toString() + " pln";
         }
-        if (iceCubes == false){
-            return id +" \t"+ name + " with lemon \t"+ price.toString() + " pln";
+        if (iceCubes == false && lemon == true) {
+            return id + " \t" + name + " with lemon \t" + price.toString() + " pln";
         }
-        return id +" \t"+ name + " \t"+ price.toString() + " pln";
+        return id + " \t" + name + " \t" + price.toString() + " pln";
     }
 }

@@ -3,7 +3,6 @@ package recrutation.task.views;
 import recrutation.task.models.Drink;
 import recrutation.task.models.Order;
 
-import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 
@@ -42,7 +41,7 @@ public class View {
     public void showDrinksMenu(List<Drink> drinks) {
         clearScreen();
         System.out.println("Drinks menu: ");
-        drinks.forEach( drink -> System.out.println(drink));
+        drinks.forEach(drink -> System.out.println(drink));
         System.out.println("\nPlease select drink by number or press 0 to go back to main menu");
     }
 
@@ -64,7 +63,7 @@ public class View {
         clearScreen();
         System.out.println("This is your current order: ");
         List<Drink> orderedDrinks = order.getOrderedDrinks();
-        orderedDrinks.forEach( orderedDrink -> System.out.println(orderedDrink));
+        orderedDrinks.forEach(orderedDrink -> System.out.println(orderedDrink));
         System.out.println("______________________");
         System.out.println("Total cost = " + order.getTotalCost(orderedDrinks) + " pln\n");
     }
