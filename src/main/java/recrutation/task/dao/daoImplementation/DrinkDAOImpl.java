@@ -17,9 +17,9 @@ public class DrinkDAOImpl implements DrinkDAO {
     public DrinkDAOImpl() {
         this.drinksMap = new TreeMap<>();
         {
-            Drink orangeJuice = new Drink("Orange juice", new BigDecimal(10));
-            Drink appleJuice = new Drink("Apple juice", new BigDecimal(7));
-            Drink lemonade = new Drink("Lemonade", new BigDecimal(5));
+            Drink orangeJuice = new Drink("Orange juice", new BigDecimal("10.33"));
+            Drink appleJuice = new Drink("Apple juice", new BigDecimal("7.50"));
+            Drink lemonade = new Drink("Lemonade", new BigDecimal("5.25"));
 
             drinksMap.put(orangeJuice.getId(), orangeJuice);
             drinksMap.put(appleJuice.getId(), appleJuice);
