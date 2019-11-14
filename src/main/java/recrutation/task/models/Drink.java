@@ -23,6 +23,10 @@ public class Drink {
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setIceCubes(boolean iceCubes) {
         this.iceCubes = iceCubes;
     }
@@ -37,13 +41,13 @@ public class Drink {
 
     @Override
     public String toString() {
-        if (iceCubes == true && lemon == true) {
+        if (iceCubes && lemon) {
             return id + " \t" + name + " with ice cubes and lemon \t" + price.toString() + " pln";
         }
-        if (lemon == false && iceCubes == true) {
+        if (!lemon && iceCubes) {
             return id + " \t" + name + " with ice cubes \t" + price.toString() + " pln";
         }
-        if (iceCubes == false && lemon == true) {
+        if (!iceCubes && lemon) {
             return id + " \t" + name + " with lemon \t" + price.toString() + " pln";
         }
         return id + " \t" + name + " \t" + price.toString() + " pln";

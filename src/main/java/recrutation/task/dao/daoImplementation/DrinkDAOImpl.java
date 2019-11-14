@@ -2,7 +2,6 @@ package recrutation.task.dao.daoImplementation;
 
 import recrutation.task.dao.DrinkDAO;
 import recrutation.task.models.Drink;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.TreeMap;
 
 public class DrinkDAOImpl implements DrinkDAO {
 
-    Map<Integer, Drink> drinksMap;
+    private Map<Integer, Drink> drinksMap;
 
     public DrinkDAOImpl() {
         this.drinksMap = new TreeMap<>();
@@ -29,7 +28,7 @@ public class DrinkDAOImpl implements DrinkDAO {
 
     @Override
     public List<Drink> getAllDrinks() {
-        return new ArrayList<Drink>(drinksMap.values());
+        return new ArrayList<>(drinksMap.values());
     }
 
     @Override
@@ -37,8 +36,4 @@ public class DrinkDAOImpl implements DrinkDAO {
         return drinksMap.get(id);
     }
 
-    @Override
-    public void updateDrink() {
-        throw new NotImplementedException();
-    }
 }

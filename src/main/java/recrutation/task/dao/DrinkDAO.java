@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface DrinkDAO {
 
-    public List<Drink> getAllDrinks();
-    public Drink getDrinkById(int id);
-    public void updateDrink();
+    List<Drink> getAllDrinks();
+    Drink getDrinkById(int id);
 }

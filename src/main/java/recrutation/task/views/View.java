@@ -8,8 +8,10 @@ import java.util.Scanner;
 
 public class View {
 
-    public void getWellcomeMessage() {
-        System.out.println("Wellcome in Food ordering app, how can I help you?\n");
+    private Scanner scan = new Scanner(System.in);
+
+    public void getWelcomeMessage() {
+        System.out.println("Welcome in Food ordering app, how can I help you?\n");
     }
 
 
@@ -23,17 +25,15 @@ public class View {
     }
 
     public String getUserChoice() {
-        Scanner scan = new Scanner(System.in);
-        String usersChoice = scan.nextLine();
-        return usersChoice;
+        return scan.nextLine();
     }
 
     public void pleaseProvideCorrectOption() {
         clearScreen();
-        System.out.println("Please press rigth key from menu\n");
+        System.out.println("Please press right key from menu\n");
     }
 
-    public static void clearScreen() {
+    private void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
@@ -41,7 +41,7 @@ public class View {
     public void showDrinksMenu(List<Drink> drinks) {
         clearScreen();
         System.out.println("Drinks menu: ");
-        drinks.forEach(drink -> System.out.println(drink));
+        drinks.forEach(System.out::println);
         System.out.println("\nPlease select drink by number or press 0 to go back to main menu");
     }
 
@@ -63,7 +63,7 @@ public class View {
         clearScreen();
         System.out.println("This is your current order: ");
         List<Drink> orderedDrinks = order.getOrderedDrinks();
-        orderedDrinks.forEach(orderedDrink -> System.out.println(orderedDrink));
+        orderedDrinks.forEach(System.out::println);
         System.out.println("______________________");
         System.out.println("Total cost = " + order.getTotalCost(orderedDrinks) + " pln\n");
     }

@@ -12,13 +12,13 @@ public class Controller {
 
     static {
         View view = new View();
-        view.getWellcomeMessage();
+        view.getWelcomeMessage();
     }
 
-    View view = new View();
-    Order order = new Order();
-    DrinkDAO drinkDAO = new DrinkDAOImpl();
-    List<Drink> drinks = drinkDAO.getAllDrinks();
+    private View view = new View();
+    private Order order = new Order();
+    private DrinkDAO drinkDAO = new DrinkDAOImpl();
+    private List<Drink> drinks = drinkDAO.getAllDrinks();
 
     public Controller() {
         run();
@@ -58,17 +58,24 @@ public class Controller {
             usersChoice = Integer.parseInt(view.getUserChoice());
             if (userSelectionIsInMenu(drinks, usersChoice)) {
 
-                Drink choosenDrink = drinks.get(usersChoice - 1);
-                System.out.println("You choose: " + choosenDrink);
+                Drink chosenDrink = drinks.get(usersChoice - 1);
 
-                askUserIfHeWantsIceCubes(choosenDrink);
-                askUserIfHeWantsLemon(choosenDrink);
-                order.addItemToOrder(choosenDrink);
+                System.out.println("You choose: " + chosenDrink); // to delete!
+
+                Drink newDrink = createNewSelectedDrink(chosenDrink);
+                askUserIfHeWantsIceCubes(newDrink);
+                askUserIfHeWantsLemon(newDrink);
+
+                order.addItemToOrder(newDrink);
             }
             if (usersChoice > drinks.size()) view.chooseRightNumber();
             if (usersChoice == 0) isActive = false;
 
         } while (isActive);
+    }
+
+    private Drink createNewSelectedDrink(Drink choosenDrink) {
+        return new Drink(choosenDrink.getName(),choosenDrink.getPrice());
     }
 
     private void askUserIfHeWantsLemon(Drink choosenDrink) {
