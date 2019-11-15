@@ -2,7 +2,7 @@ package recrutation.task.models;
 
 import java.math.BigDecimal;
 
-public class Meal implements Product {
+public class Meal implements Item {
 
     private Integer id;
     private String name;

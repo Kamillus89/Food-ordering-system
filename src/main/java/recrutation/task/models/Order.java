@@ -6,23 +6,23 @@ import java.util.List;
 
 public class Order {
 
-    List<Drink> orderedDrinks;
+    List<Item> orderedDrinks;
 
     public Order() {
         this.orderedDrinks = new ArrayList<>();
     }
 
-    public List<Drink> getOrderedDrinks() {
+    public List<Item> getOrderedItems() {
         return orderedDrinks;
     }
 
-    public void addItemToOrder(Drink drink) {
-        orderedDrinks.add(drink);
+    public void addItemToOrder(Item item) {
+        orderedDrinks.add(item);
     }
 
-    public BigDecimal getTotalCost(List<Drink> orderedDrinks) {
-        return orderedDrinks.stream()
-                .map(drink -> drink.getPrice())
+    public BigDecimal getTotalCost(List<Item> orderedItems) {
+        return orderedItems.stream()
+                .map(item -> item.getPrice())
                 .reduce(BigDecimal.ZERO,BigDecimal::add);
     }
 

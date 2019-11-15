@@ -117,11 +117,8 @@ public class Controller {
             view.showDrinksMenu(drinks);
             usersChoice = Integer.parseInt(view.getUserChoice());
             if (userSelectionIsInMenu(drinks, usersChoice)) {
-
                 Drink chosenDrink = drinks.get(usersChoice - 1);
-
-                System.out.println("You choose: " + chosenDrink); // to delete!
-
+                view.showSelectMessage(chosenDrink);
                 Drink newDrink = createNewSelectedDrink(chosenDrink);
                 askUserIfHeWantsIceCubes(newDrink);
                 askUserIfHeWantsLemon(newDrink);

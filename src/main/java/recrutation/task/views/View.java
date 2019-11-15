@@ -1,9 +1,6 @@
 package recrutation.task.views;
 
-import recrutation.task.models.Cuisine;
-import recrutation.task.models.Drink;
-import recrutation.task.models.Meal;
-import recrutation.task.models.Order;
+import recrutation.task.models.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -64,7 +61,7 @@ public class View {
     public void showOrder(Order order) {
         clearScreen();
         System.out.println("This is your current order: ");
-        List<Drink> orderedDrinks = order.getOrderedDrinks();
+        List<Item> orderedDrinks = order.getOrderedItems();
         orderedDrinks.forEach(System.out::println);
         System.out.println("______________________");
         System.out.println("Total cost = " + order.getTotalCost(orderedDrinks) + " pln\n");
@@ -91,5 +88,9 @@ public class View {
             }
         }
         System.out.println("\nPlease select meal by number or press 0 to go back to main menu");
+    }
+
+    public void showSelectMessage(Drink chosenDrink) {
+        System.out.println("You choose: " + chosenDrink);
     }
 }
