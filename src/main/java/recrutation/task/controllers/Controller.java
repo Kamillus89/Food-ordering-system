@@ -1,12 +1,17 @@
 package recrutation.task.controllers;
 
 import recrutation.task.dao.DrinkDAO;
-import recrutation.task.dao.daoImplementation.DrinkDAOImpl;
+import recrutation.task.dao.MealDAO;
+import recrutation.task.dao.daoImplementation.DefaultDrinkDAO;
+import recrutation.task.dao.daoImplementation.DefaultMealDAO;
+import recrutation.task.models.Cuisine;
 import recrutation.task.models.Drink;
+import recrutation.task.models.Meal;
 import recrutation.task.models.Order;
 import recrutation.task.views.View;
 
 import java.util.List;
+import java.util.Set;
 
 public class Controller {
 
@@ -17,8 +22,13 @@ public class Controller {
 
     private View view = new View();
     private Order order = new Order();
-    private DrinkDAO drinkDAO = new DrinkDAOImpl();
+
+    private DrinkDAO drinkDAO = new DefaultDrinkDAO();
     private List<Drink> drinks = drinkDAO.getAllDrinks();
+
+    private MealDAO mealDAO = new DefaultMealDAO();
+    private List<Meal> meals = mealDAO.getAllMeals();
+    private Set<Cuisine> cuisines = mealDAO.getAvailableCuisines();
 
     public Controller() {
         run();
@@ -38,6 +48,9 @@ public class Controller {
                 case "D":
                     presentDrinksMenu(drinks);
                     break;
+                case "M":
+                    presentCuisine(meals);
+                    break;
                 case "S":
                     view.showOrder(order);
                     break;
@@ -48,6 +61,22 @@ public class Controller {
                     view.pleaseProvideCorrectOption();
             }
         } while (!finish);
+    }
+
+    private void presentCuisine(List<Meal> meals) {
+        boolean isActive = true;
+        int usersCHoice;
+        do {
+            view.showCusines(cuisines);
+            usersCHoice = Integer.parseInt(view.getUserChoice());
+            switch (usersCHoice) {
+                case 0:
+                    isActive = false;
+                    break;
+                default:
+                    view.pleaseProvideCorrectOption();
+            }
+        } while (isActive);
     }
 
     private void presentDrinksMenu(List<Drink> drinks) {
@@ -75,7 +104,7 @@ public class Controller {
     }
 
     private Drink createNewSelectedDrink(Drink choosenDrink) {
-        return new Drink(choosenDrink.getName(),choosenDrink.getPrice());
+        return new Drink(choosenDrink.getName(), choosenDrink.getPrice());
     }
 
     private void askUserIfHeWantsLemon(Drink choosenDrink) {

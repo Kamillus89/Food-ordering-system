@@ -1,10 +1,12 @@
 package recrutation.task.views;
 
+import recrutation.task.models.Cuisine;
 import recrutation.task.models.Drink;
 import recrutation.task.models.Order;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class View {
 
@@ -19,7 +21,6 @@ public class View {
         System.out.println("What would you like to order: " +
                 "\n   [D] Drinks " +
                 "\n   [M] Meals " +
-                "\n   [L] Lunch (main course + dessert) " +
                 "\n   [S] Show my order " +
                 "\n\n Press [Q] to Quit");
     }
@@ -66,5 +67,17 @@ public class View {
         orderedDrinks.forEach(System.out::println);
         System.out.println("______________________");
         System.out.println("Total cost = " + order.getTotalCost(orderedDrinks) + " pln\n");
+    }
+
+    public void showCusines(Set<Cuisine> cuisines) {
+        clearScreen();
+        System.out.println("Which cuisine would you prefer? :");
+        int i = 1;
+        for (Cuisine cuisine : cuisines) {
+            System.out.println(i + " " + cuisine);
+            i++;
+        }
+
+        System.out.println("\n Press 0 to back to main menu");
     }
 }

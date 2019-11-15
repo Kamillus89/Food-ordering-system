@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class DrinkDAOImpl implements DrinkDAO {
+public class DefaultDrinkDAO implements DrinkDAO {
 
     private Map<Integer, Drink> drinksMap;
 
-    public DrinkDAOImpl() {
+    public DefaultDrinkDAO() {
         this.drinksMap = new TreeMap<>();
         {
             Drink orangeJuice = new Drink("Orange juice", new BigDecimal("10.33"));

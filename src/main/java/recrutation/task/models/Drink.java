@@ -2,7 +2,7 @@ package recrutation.task.models;
 
 import java.math.BigDecimal;
 
-public class Drink {
+public class Drink implements Product{
 
     private static int nextrId = 1;
 
@@ -23,8 +23,14 @@ public class Drink {
         return id;
     }
 
+    @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public BigDecimal getPrice() {
+        return price;
     }
 
     public void setIceCubes(boolean iceCubes) {
@@ -33,10 +39,6 @@ public class Drink {
 
     public void setLemon(boolean lemon) {
         this.lemon = lemon;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
     }
 
     @Override
