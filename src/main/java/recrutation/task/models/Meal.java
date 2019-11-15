@@ -22,6 +22,10 @@ public class Meal implements Item {
         this.cuisine = cuisine;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     @Override
     public String getName() {
         return name;

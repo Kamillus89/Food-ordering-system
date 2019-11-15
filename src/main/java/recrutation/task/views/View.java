@@ -67,7 +67,7 @@ public class View {
         System.out.println("Total cost = " + order.getTotalCost(orderedDrinks) + " pln\n");
     }
 
-    public void showCusines(Set<Cuisine> cuisines) {
+    public void showCuisines(Set<Cuisine> cuisines) {
         clearScreen();
         System.out.println("Which cuisine would you prefer? :");
         int i = 1;

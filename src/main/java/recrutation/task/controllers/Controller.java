@@ -7,6 +7,7 @@ import recrutation.task.dao.daoImplementation.DefaultMealDAO;
 import recrutation.task.models.*;
 import recrutation.task.views.View;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -62,19 +63,20 @@ public class Controller {
 
     private void presentCuisine(List<Meal> meals) {
         boolean isActive = true;
-        int usersCHoice;
+        String usersChoice;
+        int numericalChoice = 0;
         do {
-            view.showCusines(cuisines);
-            usersCHoice = Integer.parseInt(view.getUserChoice());
-            switch (usersCHoice) {
+            view.showCuisines(cuisines);
+            numericalChoice = checkIfUserProvideNumeric(numericalChoice);
+            switch (numericalChoice) {
                 case 1:
-                    presentChosenCusineMenu(meals,Cuisine.POLISH);
+                    presentChosenCuisineMenu(meals,Cuisine.POLISH);
                     break;
                 case 2:
-                    presentChosenCusineMenu(meals,Cuisine.ITALIAN);
+                    presentChosenCuisineMenu(meals,Cuisine.ITALIAN);
                     break;
                 case 3:
-                    presentChosenCusineMenu(meals,Cuisine.MEXICAN);
+                    presentChosenCuisineMenu(meals,Cuisine.MEXICAN);
                     break;
                 case 0:
                     isActive = false;
@@ -85,33 +87,44 @@ public class Controller {
         } while (isActive);
     }
 
-    private void presentChosenCusineMenu(List<Meal> meals, Cuisine cuisine) {
+    private void presentChosenCuisineMenu(List<Meal> meals, Cuisine cuisine) {
         boolean isActive = true;
-        int usersCHoice;
-        do {
+        String usersChoice;
+        int numericalChoice = 0;
+
+        while (isActive) {
             view.showChosenCuisineMenu(meals, cuisine);
-            usersCHoice = Integer.parseInt(view.getUserChoice());
-            switch (usersCHoice) {
-                case 1:
-                    addMealToOrder(meals, usersCHoice);
-                    break;
-                case 2:
-                    addMealToOrder(meals, usersCHoice);
-                    break;
-                case 3:
-                    addMealToOrder(meals, usersCHoice);
-                    break;
-                case 0:
-                    isActive = false;
-                    break;
-                default:
-                    view.pleaseProvideCorrectOption();
+            numericalChoice = checkIfUserProvideNumeric(numericalChoice);
+
+            List<Integer> itemIds = getItemIdFromSelectedCuisine(cuisine);
+            if (itemIds.contains(numericalChoice)) {
+                addMealToOrder(meals, numericalChoice);
+                isActive = false;
             }
-        } while (isActive);
+            if(numericalChoice == 0) isActive = false;
+        }
+
     }
 
-    private void addMealToOrder(List<Meal> meals, int usersCHoice) {
-        Meal chosenMeal = meals.get(usersCHoice);
+    private List<Integer> getItemIdFromSelectedCuisine(Cuisine cuisine) {
+        List<Integer> itemIds = new ArrayList<>();
+        for (Meal meal : mealDAO.getMealsByCuisine(cuisine)) {
+            itemIds.add(meal.getId());
+        }
+        return itemIds;
+    }
+
+    private boolean isNumeric(String userChoice) {
+        try {
+            Integer.parseInt(userChoice);
+        } catch (NumberFormatException | NullPointerException nfe) {
+            return false;
+        }
+        return true;
+    }
+
+    private void addMealToOrder(List<Meal> meals, int usersChoice) {
+        Meal chosenMeal = mealDAO.getMealById(usersChoice);
         view.showSelectMessage(chosenMeal);
         Meal newMeal = createNewSelectedItem(chosenMeal);
         order.addItemToOrder(newMeal);
@@ -119,12 +132,13 @@ public class Controller {
 
     private void presentDrinksMenu(List<Drink> drinks) {
         boolean isActive = true;
-        int usersChoice;
+        String usersChoice;
+        int numericalChoice = 0;
         do {
             view.showDrinksMenu(drinks);
-            usersChoice = Integer.parseInt(view.getUserChoice());
-            if (userSelectionIsInMenu(drinks, usersChoice)) {
-                Drink chosenDrink = drinks.get(usersChoice - 1);
+            numericalChoice = checkIfUserProvideNumeric(numericalChoice);
+            if (userSelectionIsInMenu(drinks, numericalChoice)) {
+                Drink chosenDrink = drinks.get(numericalChoice - 1);
                 view.showSelectMessage(chosenDrink);
                 Drink newDrink = createNewSelectedItem(chosenDrink);
                 askUserIfHeWantsIceCubes(newDrink);
@@ -132,10 +146,21 @@ public class Controller {
 
                 order.addItemToOrder(newDrink);
             }
-            if (usersChoice > drinks.size()) view.chooseRightNumber();
-            if (usersChoice == 0) isActive = false;
+            if (numericalChoice > drinks.size()) view.chooseRightNumber();
+            if (numericalChoice == 0) isActive = false;
 
         } while (isActive);
+    }
+
+    private int checkIfUserProvideNumeric(int numericalChoice) {
+        String usersChoice;
+        usersChoice = view.getUserChoice();
+        if (isNumeric(usersChoice)) {
+            numericalChoice = Integer.parseInt(usersChoice);
+        } else {
+            view.pleaseProvideCorrectOption();
+        }
+        return numericalChoice;
     }
 
     private Drink createNewSelectedItem(Drink chosenDrink) {
@@ -143,16 +168,16 @@ public class Controller {
     }
 
     private Meal createNewSelectedItem(Meal chosenMeal) {
-        return new Meal(chosenMeal.getName(), chosenMeal.getPrice(), chosenMeal.getCuisine());
+        return new Meal(chosenMeal.getId(),chosenMeal.getName(), chosenMeal.getPrice(), chosenMeal.getCuisine());
     }
 
-    private void askUserIfHeWantsLemon(Drink choosenDrink) {
+    private void askUserIfHeWantsLemon(Drink chosenDrink) {
         boolean isActive = true;
         String userChoice;
         while (isActive) {
             userChoice = view.askUserForLemon();
             if (userChoice.equalsIgnoreCase("y")) {
-                choosenDrink.setLemon(true);
+                chosenDrink.setWithLemon(true);
                 isActive = false;
             } else {
                 isActive = false;
@@ -160,13 +185,13 @@ public class Controller {
         }
     }
 
-    private void askUserIfHeWantsIceCubes(Drink choosenDrink) {
+    private void askUserIfHeWantsIceCubes(Drink chosenDrink) {
         boolean isActive = true;
         String userChoice;
         while (isActive) {
             userChoice = view.askUserForIceCubes();
             if (userChoice.equalsIgnoreCase("y")) {
-                choosenDrink.setIceCubes(true);
+                chosenDrink.setWithIceCubes(true);
                 isActive = false;
             } else {
                 isActive = false;

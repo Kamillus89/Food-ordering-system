@@ -4,19 +4,19 @@ import java.math.BigDecimal;
 
 public class Drink implements Item {
 
-    private static int nextrId = 1;
+    private static int nextId = 1;
 
     private int id;
     private String name;
     private BigDecimal price;
-    private boolean iceCubes = false;
-    private boolean lemon = false;
+    private boolean withIceCubes = false;
+    private boolean withLemon = false;
 
     public Drink(String name, BigDecimal price) {
-        this.id = Drink.nextrId;
+        this.id = Drink.nextId;
         this.name = name;
         this.price = price;
-        Drink.nextrId++;
+        Drink.nextId++;
     }
 
     public int getId() {
@@ -33,24 +33,24 @@ public class Drink implements Item {
         return price;
     }
 
-    public void setIceCubes(boolean iceCubes) {
-        this.iceCubes = iceCubes;
+    public void setWithIceCubes(boolean withIceCubes) {
+        this.withIceCubes = withIceCubes;
     }
 
-    public void setLemon(boolean lemon) {
-        this.lemon = lemon;
+    public void setWithLemon(boolean withLemon) {
+        this.withLemon = withLemon;
     }
 
     @Override
     public String toString() {
-        if (iceCubes && lemon) {
-            return id + " \t" + name + " with ice cubes and lemon \t" + price.toString() + " pln";
+        if (withIceCubes && withLemon) {
+            return id + " \t" + name + " with ice cubes and with Lemon \t" + price.toString() + " pln";
         }
-        if (!lemon && iceCubes) {
+        if (!withLemon && withIceCubes) {
             return id + " \t" + name + " with ice cubes \t" + price.toString() + " pln";
         }
-        if (!iceCubes && lemon) {
-            return id + " \t" + name + " with lemon \t" + price.toString() + " pln";
+        if (!withIceCubes && withLemon) {
+            return id + " \t" + name + " with with Lemon \t" + price.toString() + " pln";
         }
         return id + " \t" + name + " \t" + price.toString() + " pln";
     }

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Order {
 
-    List<Item> orderedItems;
+    private List<Item> orderedItems;
 
     public Order() {
         this.orderedItems = new ArrayList<>();
