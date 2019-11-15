@@ -6,18 +6,18 @@ import java.util.List;
 
 public class Order {
 
-    List<Item> orderedDrinks;
+    List<Item> orderedItems;
 
     public Order() {
-        this.orderedDrinks = new ArrayList<>();
+        this.orderedItems = new ArrayList<>();
     }
 
     public List<Item> getOrderedItems() {
-        return orderedDrinks;
+        return orderedItems;
     }
 
     public void addItemToOrder(Item item) {
-        orderedDrinks.add(item);
+        orderedItems.add(item);
     }
 
     public BigDecimal getTotalCost(List<Item> orderedItems) {

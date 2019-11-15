@@ -4,10 +4,7 @@ import recrutation.task.dao.DrinkDAO;
 import recrutation.task.dao.MealDAO;
 import recrutation.task.dao.daoImplementation.DefaultDrinkDAO;
 import recrutation.task.dao.daoImplementation.DefaultMealDAO;
-import recrutation.task.models.Cuisine;
-import recrutation.task.models.Drink;
-import recrutation.task.models.Meal;
-import recrutation.task.models.Order;
+import recrutation.task.models.*;
 import recrutation.task.views.View;
 
 import java.util.List;
@@ -96,10 +93,13 @@ public class Controller {
             usersCHoice = Integer.parseInt(view.getUserChoice());
             switch (usersCHoice) {
                 case 1:
+                    addMealToOrder(meals, usersCHoice);
                     break;
                 case 2:
+                    addMealToOrder(meals, usersCHoice);
                     break;
                 case 3:
+                    addMealToOrder(meals, usersCHoice);
                     break;
                 case 0:
                     isActive = false;
@@ -108,6 +108,13 @@ public class Controller {
                     view.pleaseProvideCorrectOption();
             }
         } while (isActive);
+    }
+
+    private void addMealToOrder(List<Meal> meals, int usersCHoice) {
+        Meal chosenMeal = meals.get(usersCHoice);
+        view.showSelectMessage(chosenMeal);
+        Meal newMeal = createNewSelectedItem(chosenMeal);
+        order.addItemToOrder(newMeal);
     }
 
     private void presentDrinksMenu(List<Drink> drinks) {
@@ -119,7 +126,7 @@ public class Controller {
             if (userSelectionIsInMenu(drinks, usersChoice)) {
                 Drink chosenDrink = drinks.get(usersChoice - 1);
                 view.showSelectMessage(chosenDrink);
-                Drink newDrink = createNewSelectedDrink(chosenDrink);
+                Drink newDrink = createNewSelectedItem(chosenDrink);
                 askUserIfHeWantsIceCubes(newDrink);
                 askUserIfHeWantsLemon(newDrink);
 
@@ -131,8 +138,12 @@ public class Controller {
         } while (isActive);
     }
 
-    private Drink createNewSelectedDrink(Drink choosenDrink) {
-        return new Drink(choosenDrink.getName(), choosenDrink.getPrice());
+    private Drink createNewSelectedItem(Drink chosenDrink) {
+        return new Drink(chosenDrink.getName(), chosenDrink.getPrice());
+    }
+
+    private Meal createNewSelectedItem(Meal chosenMeal) {
+        return new Meal(chosenMeal.getName(), chosenMeal.getPrice(), chosenMeal.getCuisine());
     }
 
     private void askUserIfHeWantsLemon(Drink choosenDrink) {

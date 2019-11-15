@@ -90,7 +90,7 @@ public class View {
         System.out.println("\nPlease select meal by number or press 0 to go back to main menu");
     }
 
-    public void showSelectMessage(Drink chosenDrink) {
-        System.out.println("You choose: " + chosenDrink);
+    public void showSelectMessage(Item chosenItem) {
+        System.out.println("You choose: " + chosenItem);
     }
 }
