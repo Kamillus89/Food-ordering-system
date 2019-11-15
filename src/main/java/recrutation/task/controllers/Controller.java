@@ -70,6 +70,37 @@ public class Controller {
             view.showCusines(cuisines);
             usersCHoice = Integer.parseInt(view.getUserChoice());
             switch (usersCHoice) {
+                case 1:
+                    presentChosenCusineMenu(meals,Cuisine.POLISH);
+                    break;
+                case 2:
+                    presentChosenCusineMenu(meals,Cuisine.ITALIAN);
+                    break;
+                case 3:
+                    presentChosenCusineMenu(meals,Cuisine.MEXICAN);
+                    break;
+                case 0:
+                    isActive = false;
+                    break;
+                default:
+                    view.pleaseProvideCorrectOption();
+            }
+        } while (isActive);
+    }
+
+    private void presentChosenCusineMenu(List<Meal> meals, Cuisine cuisine) {
+        boolean isActive = true;
+        int usersCHoice;
+        do {
+            view.showChosenCuisineMenu(meals, cuisine);
+            usersCHoice = Integer.parseInt(view.getUserChoice());
+            switch (usersCHoice) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
                 case 0:
                     isActive = false;
                     break;

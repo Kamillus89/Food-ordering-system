@@ -35,4 +35,9 @@ public class Meal implements Product {
     public Cuisine getCuisine() {
         return cuisine;
     }
+
+    @Override
+    public String toString() {
+        return id + " \t" + name + " \t\t" + price + " pln";
+    }
 }

@@ -2,6 +2,7 @@ package recrutation.task.views;
 
 import recrutation.task.models.Cuisine;
 import recrutation.task.models.Drink;
+import recrutation.task.models.Meal;
 import recrutation.task.models.Order;
 
 import java.util.List;
@@ -79,5 +80,16 @@ public class View {
         }
 
         System.out.println("\n Press 0 to back to main menu");
+    }
+
+    public void showChosenCuisineMenu(List<Meal> meals, Cuisine cuisine) {
+        clearScreen();
+        System.out.println(cuisine + " menu: ");
+        for (Meal meal: meals) {
+            if (meal.getCuisine().equals(cuisine)) {
+                System.out.println(meal);
+            }
+        }
+        System.out.println("\nPlease select meal by number or press 0 to go back to main menu");
     }
 }
